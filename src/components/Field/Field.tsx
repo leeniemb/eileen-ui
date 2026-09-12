@@ -25,9 +25,9 @@ export function Field({ title, description, value, htmlFor, children, className 
         )}
       </div>
       {description && (
-        <p className="mt-1 font-mono text-micro text-[var(--eileen-text-muted)]">{description}</p>
+        <p className="mt-2 font-mono text-sm text-[var(--eileen-text-muted)]">{description}</p>
       )}
-      <div className="mt-4">{children}</div>
+      <div className="mt-2">{children}</div>
     </div>
   );
 }

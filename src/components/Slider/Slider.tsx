@@ -33,7 +33,7 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
     }
 
     return (
-      <div className={`relative flex h-4 items-center ${disabled ? 'opacity-50' : ''} ${className}`}>
+      <div className={`relative flex h-6 items-center ${disabled ? 'opacity-50' : ''} ${className}`}>
         <div
           className="absolute left-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-black-sesame"
           style={{ width: `calc(${percent}% - ${TRACK_GAP_PX}px)` }}
@@ -53,7 +53,7 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
         <div
           aria-hidden
           className="absolute top-1/2 w-1 -translate-y-1/2 rounded-full bg-black-sesame transition-[height] duration-150 ease-out"
-          style={{ left: `calc(${percent}% - 2px)`, height: active ? 16 : 8 }}
+          style={{ left: `calc(${percent}% - 2px)`, height: active ? 24 : 16 }}
         />
         <input
           ref={ref}
