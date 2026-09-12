@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --eileen-accent: #6d28d9;
+  --eileen-accent-fg: #ffffff;
+  --eileen-radius: 0.5rem;
+}
