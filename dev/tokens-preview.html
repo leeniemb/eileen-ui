@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>eileen-ui — tokens</title>
+<link rel="stylesheet" href="../dist/style.css" />
+<style>
+  body { max-width: 880px; margin: 0 auto; padding: 64px 24px 128px; }
+  .swatch { width: 100%; height: 72px; border-radius: var(--eileen-radius); border: 1px solid var(--eileen-border); }
+  .space-row { display: flex; align-items: center; gap: 16px; }
+  .space-bar { background: var(--eileen-black-sesame); height: 12px; border-radius: 2px; }
+  section + section { margin-top: 64px; }
+  .eyebrow { color: var(--eileen-text-muted); }
+</style>
+</head>
+<body class="font-sans" style="background: var(--eileen-bg); color: var(--eileen-text);">
+
+  <h1 class="text-4xl mb-2">eileen-ui</h1>
+  <p class="font-mono text-label uppercase eyebrow">spacing / type / color — v0</p>
+
+  <section>
+    <h2 class="font-mono text-label uppercase eyebrow mb-6">Color</h2>
+    <div style="display:grid; grid-template-columns: repeat(5, 1fr); gap: 24px;">
+      <div>
+        <div class="swatch bg-coconut-milk"></div>
+        <p class="font-mono text-xs mt-2">coconut-milk</p>
+        <p class="font-mono text-xs eyebrow">#FEFAF4</p>
+      </div>
+      <div>
+        <div class="swatch bg-meringue"></div>
+        <p class="font-mono text-xs mt-2">meringue</p>
+        <p class="font-mono text-xs eyebrow">#E7E2DB</p>
+      </div>
+      <div>
+        <div class="swatch bg-truffle"></div>
+        <p class="font-mono text-xs mt-2">truffle</p>
+        <p class="font-mono text-xs eyebrow">#ADB4BA</p>
+      </div>
+      <div>
+        <div class="swatch bg-black-sesame"></div>
+        <p class="font-mono text-xs mt-2">black-sesame</p>
+        <p class="font-mono text-xs eyebrow">#171717</p>
+      </div>
+      <div>
+        <div class="swatch bg-white"></div>
+        <p class="font-mono text-xs mt-2">white</p>
+        <p class="font-mono text-xs eyebrow">#FFFFFF</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 32px; display:flex; gap:16px; flex-wrap: wrap;">
+      <button class="font-sans text-sm" style="background: var(--eileen-accent); color: var(--eileen-accent-fg); border-radius: var(--eileen-radius); height:40px; padding:0 16px; border:none;">Solid button</button>
+      <button class="font-sans text-sm" style="border: 1px solid var(--eileen-accent); color: var(--eileen-accent); border-radius: var(--eileen-radius); height:40px; padding:0 16px; background:none;">Outline button</button>
+    </div>
+    <p class="font-mono text-xs eyebrow" style="margin-top: 12px;">accent is currently aliased to black-sesame (monochrome) — flagged in chat, no bright accent color given yet</p>
+  </section>
+
+  <section>
+    <h2 class="font-mono text-label uppercase eyebrow mb-6">Spacing — 8px root, one 4px option</h2>
+    <div style="display:flex; flex-direction: column; gap: 12px;">
+      <div class="space-row"><span class="font-mono text-xs" style="width:56px;">4px</span><div class="space-bar" style="width:4px;"></div></div>
+      <div class="space-row"><span class="font-mono text-xs" style="width:56px;">8px</span><div class="space-bar" style="width:8px;"></div></div>
+      <div class="space-row"><span class="font-mono text-xs" style="width:56px;">16px</span><div class="space-bar" style="width:16px;"></div></div>
+      <div class="space-row"><span class="font-mono text-xs" style="width:56px;">24px</span><div class="space-bar" style="width:24px;"></div></div>
+      <div class="space-row"><span class="font-mono text-xs" style="width:56px;">32px</span><div class="space-bar" style="width:32px;"></div></div>
+      <div class="space-row"><span class="font-mono text-xs" style="width:56px;">48px</span><div class="space-bar" style="width:48px;"></div></div>
+      <div class="space-row"><span class="font-mono text-xs" style="width:56px;">64px</span><div class="space-bar" style="width:64px;"></div></div>
+      <div class="space-row"><span class="font-mono text-xs" style="width:56px;">96px</span><div class="space-bar" style="width:96px;"></div></div>
+      <div class="space-row"><span class="font-mono text-xs" style="width:56px;">128px</span><div class="space-bar" style="width:128px;"></div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="font-mono text-label uppercase eyebrow mb-6">Type — Helvetica (main text)</h2>
+    <div style="display:flex; flex-direction: column; gap: 20px;">
+      <div class="space-row"><span class="font-mono text-xs eyebrow" style="width:64px;">6xl/72</span><span class="text-6xl">Eileen UI</span></div>
+      <div class="space-row"><span class="font-mono text-xs eyebrow" style="width:64px;">5xl/56</span><span class="text-5xl">Eileen UI</span></div>
+      <div class="space-row"><span class="font-mono text-xs eyebrow" style="width:64px;">4xl/40</span><span class="text-4xl">Eileen UI</span></div>
+      <div class="space-row"><span class="font-mono text-xs eyebrow" style="width:64px;">3xl/32</span><span class="text-3xl">Eileen UI</span></div>
+      <div class="space-row"><span class="font-mono text-xs eyebrow" style="width:64px;">2xl/24</span><span class="text-2xl">Eileen UI</span></div>
+      <div class="space-row"><span class="font-mono text-xs eyebrow" style="width:64px;">xl/20</span><span class="text-xl">Eileen UI</span></div>
+      <div class="space-row"><span class="font-mono text-xs eyebrow" style="width:64px;">lg/18</span><span class="text-lg">Eileen UI</span></div>
+      <div class="space-row"><span class="font-mono text-xs eyebrow" style="width:64px;">base/16</span><span class="text-base">Eileen UI — the quick brown fox</span></div>
+      <div class="space-row"><span class="font-mono text-xs eyebrow" style="width:64px;">sm/14</span><span class="text-sm">Eileen UI — the quick brown fox</span></div>
+      <div class="space-row"><span class="font-mono text-xs eyebrow" style="width:64px;">xs/12</span><span class="text-xs">Eileen UI — the quick brown fox</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="font-mono text-label uppercase eyebrow mb-6">Type — IBM Plex Mono (accents / micro-type)</h2>
+    <div style="display:flex; flex-direction: column; gap: 20px;">
+      <div class="space-row"><span class="font-mono text-xs eyebrow" style="width:64px;">base/16</span><span class="font-mono text-base">#ADB4BA</span></div>
+      <div class="space-row"><span class="font-mono text-xs eyebrow" style="width:64px;">sm/14</span><span class="font-mono text-sm">#ADB4BA</span></div>
+      <div class="space-row"><span class="font-mono text-xs eyebrow" style="width:64px;">label/12</span><span class="font-mono text-label uppercase">Section label</span></div>
+      <div class="space-row"><span class="font-mono text-xs eyebrow" style="width:64px;">micro/10</span><span class="font-mono text-micro uppercase">Micro caption text</span></div>
+    </div>
+
+    <p class="font-mono text-label uppercase eyebrow" style="margin-top:32px; margin-bottom: 8px;">example: labeled swatch row (mirrors the reference screenshot)</p>
+    <div style="border: 1px solid var(--eileen-border); border-radius: var(--eileen-radius); overflow: hidden;">
+      <div style="display:grid; grid-template-columns: 1fr 1fr; padding: 12px 16px; border-bottom: 1px solid var(--eileen-border);">
+        <span class="font-mono text-label uppercase eyebrow">Name</span>
+        <span class="font-mono text-label uppercase eyebrow">Mode 1</span>
+      </div>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; padding: 12px 16px; align-items:center;">
+        <span class="font-sans text-sm">truffle</span>
+        <span style="display:flex; align-items:center; gap:8px;"><span style="width:16px; height:16px; border-radius:4px; display:inline-block;" class="bg-truffle"></span><span class="font-mono text-sm">ADB4BA</span></span>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

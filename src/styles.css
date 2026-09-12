@@ -1,9 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --eileen-accent: #6d28d9;
-  --eileen-accent-fg: #ffffff;
-  --eileen-radius: 0.5rem;
+  /* raw palette */
+  --eileen-coconut-milk: #FEFAF4;
+  --eileen-meringue: #E7E2DB;
+  --eileen-truffle: #ADB4BA;
+  --eileen-black-sesame: #171717;
+  --eileen-white: #FFFFFF;
+
+  /* semantic aliases — components reference these, not the raw swatches above,
+     so the palette can change later without touching component code */
+  --eileen-bg: var(--eileen-coconut-milk);
+  --eileen-surface: var(--eileen-white);
+  --eileen-border: var(--eileen-meringue);
+  --eileen-text: var(--eileen-black-sesame);
+  --eileen-text-muted: var(--eileen-truffle);
+  --eileen-accent: var(--eileen-black-sesame);
+  --eileen-accent-fg: var(--eileen-white);
+
+  --eileen-radius: 8px;
+}
+
+@layer base {
+  body {
+    font-family: theme('fontFamily.sans');
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
 }
