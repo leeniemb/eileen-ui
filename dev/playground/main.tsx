@@ -58,7 +58,6 @@ function Playground() {
             options={[
               { value: 'precise', label: 'Precise stop' },
               { value: 'loose', label: 'Loose stop' },
-              { value: 'off', label: 'Off', disabled: true },
             ]}
           />
         </div>

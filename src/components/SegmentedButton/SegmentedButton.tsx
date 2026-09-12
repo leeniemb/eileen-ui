@@ -52,7 +52,7 @@ export function SegmentedButton({
   return (
     <div
       role="radiogroup"
-      className={`inline-flex h-10 items-center gap-1 rounded-[var(--eileen-radius)] border border-meringue bg-white p-1 ${className}`}
+      className={`flex h-10 w-full items-center gap-1 rounded-[var(--eileen-radius)] border border-meringue bg-white p-1 ${className}`}
       {...props}
     >
       {options.map((opt) => {
@@ -62,7 +62,7 @@ export function SegmentedButton({
           <label
             key={opt.value}
             className={[
-              'flex h-8 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-[var(--eileen-radius)] px-3 text-sm font-sans transition-colors',
+              'flex h-8 flex-auto cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-[var(--eileen-radius)] px-1 text-sm font-sans transition-colors',
               selected ? 'bg-black-sesame text-white' : 'text-[var(--eileen-text)] hover:bg-meringue',
               isDisabled ? 'pointer-events-none opacity-50' : '',
             ].join(' ')}
