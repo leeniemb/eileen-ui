@@ -25,6 +25,24 @@ function AlignRightIcon() {
   );
 }
 
+const STOP_OPTIONS = [
+  { value: 'precise', label: 'Precise stop' },
+  { value: 'loose', label: 'Loose stop' },
+];
+
+const SPEED_OPTIONS = [
+  { value: '1x', label: '1x' },
+  { value: '2x', label: '2x' },
+  { value: '3x', label: '3x' },
+  { value: '4x', label: '4x' },
+];
+
+const ALIGN_OPTIONS = [
+  { value: 'left', icon: <AlignLeftIcon /> },
+  { value: 'center', icon: <AlignCenterIcon /> },
+  { value: 'right', icon: <AlignRightIcon /> },
+];
+
 function Playground() {
   const [segments, setSegments] = useState(6);
   const [amount, setAmount] = useState(42);
@@ -55,10 +73,7 @@ function Playground() {
             variant="text-icon"
             value={stop}
             onChange={setStop}
-            options={[
-              { value: 'precise', label: 'Precise stop' },
-              { value: 'loose', label: 'Loose stop' },
-            ]}
+            options={STOP_OPTIONS}
           />
         </div>
 
@@ -68,12 +83,7 @@ function Playground() {
             variant="text"
             value={speed}
             onChange={setSpeed}
-            options={[
-              { value: '1x', label: '1x' },
-              { value: '2x', label: '2x' },
-              { value: '3x', label: '3x' },
-              { value: '4x', label: '4x' },
-            ]}
+            options={SPEED_OPTIONS}
           />
         </div>
 
@@ -83,11 +93,7 @@ function Playground() {
             variant="icon"
             value={align}
             onChange={setAlign}
-            options={[
-              { value: 'left', icon: <AlignLeftIcon /> },
-              { value: 'center', icon: <AlignCenterIcon /> },
-              { value: 'right', icon: <AlignRightIcon /> },
-            ]}
+            options={ALIGN_OPTIONS}
           />
         </div>
       </div>

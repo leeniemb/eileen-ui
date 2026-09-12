@@ -1,4 +1,4 @@
-import { useId } from 'react';
+import { useCallback, useId, useLayoutEffect, useRef, useState } from 'react';
 import type { HTMLAttributes, ReactNode } from 'react';
 
 export type SegmentedButtonVariant = 'text' | 'icon' | 'text-icon';
@@ -48,22 +48,74 @@ export function SegmentedButton({
 }: SegmentedButtonProps) {
   const autoName = useId();
   const groupName = name ?? autoName;
+  const containerRef = useRef<HTMLDivElement>(null);
+  const segmentRefs = useRef(new Map<string, HTMLLabelElement>());
+  // Stable (memoized) per-option ref callbacks. An inline `ref={(el) => ...}`
+  // gets a new identity every render, which makes React null-then-reattach
+  // *every* segment's ref on *every* render -- that briefly empties
+  // segmentRefs mid-render, and a measure() that lands in that window
+  // silently no-ops, leaving the indicator stuck on the previous segment.
+  const segmentRefSetters = useRef(new Map<string, (el: HTMLLabelElement | null) => void>());
+  const getSegmentRefSetter = useCallback((key: string) => {
+    let setter = segmentRefSetters.current.get(key);
+    if (!setter) {
+      setter = (el) => {
+        if (el) segmentRefs.current.set(key, el);
+        else segmentRefs.current.delete(key);
+      };
+      segmentRefSetters.current.set(key, setter);
+    }
+    return setter;
+  }, []);
+  const valueRef = useRef(value);
+  valueRef.current = value;
+  const [indicator, setIndicator] = useState<{ x: number; width: number } | null>(null);
+
+  // Reads the *current* value/segment at call time rather than closing over
+  // a render's snapshot, so a resize callback firing late can never stomp a
+  // newer selection with a stale position.
+  const measure = useCallback(() => {
+    const segment = segmentRefs.current.get(valueRef.current);
+    if (!segment) return;
+    setIndicator({ x: segment.offsetLeft, width: segment.offsetWidth });
+  }, []);
+
+  useLayoutEffect(() => {
+    measure();
+  }, [value, options, variant, measure]);
+
+  useLayoutEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const ro = new ResizeObserver(measure);
+    ro.observe(container);
+    return () => ro.disconnect();
+  }, [measure]);
 
   return (
     <div
+      ref={containerRef}
       role="radiogroup"
-      className={`flex h-10 w-full items-center gap-1 rounded-[var(--eileen-radius)] border border-meringue bg-white p-1 ${className}`}
+      className={`relative flex h-10 w-full items-center gap-1 rounded-[var(--eileen-radius)] border border-meringue bg-white p-1 ${className}`}
       {...props}
     >
+      {indicator && (
+        <div
+          aria-hidden="true"
+          className="absolute left-0 top-1 h-8 rounded-[var(--eileen-radius)] bg-black-sesame transition-[transform,width] duration-200 ease-out"
+          style={{ width: indicator.width, transform: `translateX(${indicator.x}px)` }}
+        />
+      )}
       {options.map((opt) => {
         const selected = opt.value === value;
         const isDisabled = disabled || opt.disabled;
         return (
           <label
             key={opt.value}
+            ref={getSegmentRefSetter(opt.value)}
             className={[
-              'flex h-8 flex-auto cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-[var(--eileen-radius)] px-1 text-sm font-sans transition-colors',
-              selected ? 'bg-black-sesame text-white' : 'text-[var(--eileen-text)] hover:bg-meringue',
+              'relative z-10 flex h-8 flex-auto cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-[var(--eileen-radius)] px-1 text-sm font-sans transition-colors duration-200',
+              selected ? 'text-white' : 'text-[var(--eileen-text)] hover:bg-meringue',
               isDisabled ? 'pointer-events-none opacity-50' : '',
             ].join(' ')}
           >
