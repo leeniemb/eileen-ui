@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./src/**/*.{ts,tsx}', './dev/**/*.html'],
+  content: ['./src/**/*.{ts,tsx}', './dev/**/*.{html,tsx}'],
   theme: {
     // Root 8px scale: keeps Tailwind's default n*4px indexing (so p-6 is
     // still 24px, muscle memory carries over) but only exposes even
