@@ -3,6 +3,14 @@ import { createRoot } from 'react-dom/client';
 import { Field, Slider, Button, SegmentedButton } from '../../src';
 import '../../src/styles.css';
 
+function PlusIcon() {
+  return (
+    <svg viewBox="0 0 16 16" fill="none" className="h-full w-full">
+      <path d="M8 2v12M2 8h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 function AlignLeftIcon() {
   return (
     <svg viewBox="0 0 16 16" fill="none" className="h-4 w-4">
@@ -52,10 +60,50 @@ function Playground() {
 
   return (
     <div style={{ maxWidth: 480, margin: '0 auto', padding: '64px 24px' }} className="flex flex-col gap-16">
-      <div className="flex gap-4">
-        <Button>Solid</Button>
-        <Button variant="outline">Outline</Button>
-        <Button variant="ghost">Ghost</Button>
+      <div className="flex flex-col gap-4">
+        <p className="font-mono text-label uppercase text-[var(--eileen-text-muted)]">regular — text</p>
+        <div className="flex items-center gap-4">
+          <Button>Solid</Button>
+          <Button variant="outline">Outline</Button>
+          <Button variant="ghost">Ghost</Button>
+          <Button disabled>Disabled</Button>
+        </div>
+
+        <p className="font-mono text-label uppercase text-[var(--eileen-text-muted)]">regular — text + icon</p>
+        <div className="flex items-center gap-4">
+          <Button icon={<PlusIcon />}>Solid</Button>
+          <Button variant="outline" icon={<PlusIcon />}>Outline</Button>
+          <Button variant="ghost" icon={<PlusIcon />}>Ghost</Button>
+        </div>
+
+        <p className="font-mono text-label uppercase text-[var(--eileen-text-muted)]">regular — icon only</p>
+        <div className="flex items-center gap-4">
+          <Button icon={<PlusIcon />} aria-label="Add" />
+          <Button variant="outline" icon={<PlusIcon />} aria-label="Add" />
+          <Button variant="ghost" icon={<PlusIcon />} aria-label="Add" />
+        </div>
+
+        <p className="font-mono text-label uppercase text-[var(--eileen-text-muted)]">mini — text</p>
+        <div className="flex items-center gap-4">
+          <Button size="mini">Solid</Button>
+          <Button size="mini" variant="outline">Outline</Button>
+          <Button size="mini" variant="ghost">Ghost</Button>
+          <Button size="mini" disabled>Disabled</Button>
+        </div>
+
+        <p className="font-mono text-label uppercase text-[var(--eileen-text-muted)]">mini — text + icon</p>
+        <div className="flex items-center gap-4">
+          <Button size="mini" icon={<PlusIcon />}>Solid</Button>
+          <Button size="mini" variant="outline" icon={<PlusIcon />}>Outline</Button>
+          <Button size="mini" variant="ghost" icon={<PlusIcon />}>Ghost</Button>
+        </div>
+
+        <p className="font-mono text-label uppercase text-[var(--eileen-text-muted)]">mini — icon only</p>
+        <div className="flex items-center gap-4">
+          <Button size="mini" icon={<PlusIcon />} aria-label="Add" />
+          <Button size="mini" variant="outline" icon={<PlusIcon />} aria-label="Add" />
+          <Button size="mini" variant="ghost" icon={<PlusIcon />} aria-label="Add" />
+        </div>
       </div>
 
       <Field title="Segment count" description="2-20 wedges" value={segments} htmlFor="segments">
