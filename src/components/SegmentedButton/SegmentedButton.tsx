@@ -102,7 +102,7 @@ export function SegmentedButton({
       {indicator && (
         <div
           aria-hidden="true"
-          className="absolute left-0 top-1 h-8 rounded-[var(--eileen-radius)] bg-black-sesame transition-[transform,width] duration-200 ease-out"
+          className="absolute inset-y-1 left-0 rounded-[var(--eileen-radius)] bg-black-sesame transition-[transform,width] duration-200 ease-out"
           style={{ width: indicator.width, transform: `translateX(${indicator.x}px)` }}
         />
       )}
@@ -114,7 +114,7 @@ export function SegmentedButton({
             key={opt.value}
             ref={getSegmentRefSetter(opt.value)}
             className={[
-              'relative z-10 flex h-8 flex-auto cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-[var(--eileen-radius)] px-1 text-sm font-sans transition-colors duration-200',
+              'relative z-10 flex flex-auto cursor-pointer items-center justify-center gap-2 self-stretch whitespace-nowrap rounded-[var(--eileen-radius)] px-1 text-sm font-sans transition-colors duration-200',
               selected ? 'text-white' : 'text-[var(--eileen-text)] hover:bg-meringue',
               isDisabled ? 'pointer-events-none opacity-50' : '',
             ].join(' ')}
