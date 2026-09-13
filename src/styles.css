@@ -23,6 +23,10 @@
   --eileen-accent-fg: var(--eileen-white);
 
   --eileen-radius: 8px;
+  /* For a container that nests an inset element on --eileen-radius padded by
+     4px: outer = inner + padding, so the two curves share a center instead
+     of looking like two unrelated roundnesses. */
+  --eileen-radius-lg: 12px;
 }
 
 @layer base {

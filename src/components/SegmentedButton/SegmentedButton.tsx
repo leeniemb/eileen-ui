@@ -96,7 +96,7 @@ export function SegmentedButton({
     <div
       ref={containerRef}
       role="radiogroup"
-      className={`relative flex h-10 w-full items-center gap-1 rounded-[var(--eileen-radius)] border border-meringue bg-white p-1 ${className}`}
+      className={`relative flex h-10 w-full items-center gap-1 rounded-[var(--eileen-radius-lg)] border border-meringue bg-white p-1 ${className}`}
       {...props}
     >
       {indicator && (
