@@ -1,12 +1,20 @@
 import { StrictMode, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Field, Slider, Button, SegmentedButton } from '../../src';
+import { Field, Slider, Button, SegmentedButton, Input } from '../../src';
 import '../../src/styles.css';
 
 function PlusIcon() {
   return (
     <svg viewBox="0 0 16 16" fill="none" className="h-full w-full">
       <path d="M8 2v12M2 8h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function XIcon() {
+  return (
+    <svg viewBox="0 0 16 16" fill="none" className="h-full w-full">
+      <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
 }
@@ -57,6 +65,20 @@ function Playground() {
   const [speed, setSpeed] = useState('1x');
   const [stop, setStop] = useState('precise');
   const [align, setAlign] = useState('left');
+  const [rows, setRows] = useState([
+    { id: 'r1', value: 'One' },
+    { id: 'r2', value: 'Two' },
+    { id: 'r3', value: '' },
+  ]);
+  const [plainValue, setPlainValue] = useState('');
+  const [miniValue, setMiniValue] = useState('');
+
+  function updateRow(id: string, value: string) {
+    setRows((prev) => prev.map((r) => (r.id === id ? { ...r, value } : r)));
+  }
+  function removeRow(id: string) {
+    setRows((prev) => prev.filter((r) => r.id !== id));
+  }
 
   return (
     <div style={{ maxWidth: 480, margin: '0 auto', padding: '64px 24px' }} className="flex flex-col gap-16">
@@ -143,6 +165,37 @@ function Playground() {
             onChange={setAlign}
             options={ALIGN_OPTIONS}
           />
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-6" style={{ maxWidth: 320 }}>
+        <div>
+          <p className="mb-2 font-mono text-label uppercase text-[var(--eileen-text-muted)]">
+            medium — label + remove
+          </p>
+          <div className="flex flex-col gap-2">
+            {rows.map((row, i) => (
+              <Input
+                key={row.id}
+                label={String(i + 1).padStart(2, '0')}
+                value={row.value}
+                onChange={(e) => updateRow(row.id, e.target.value)}
+                icon={<XIcon />}
+                iconLabel="Remove"
+                onIconClick={() => removeRow(row.id)}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <p className="mb-2 font-mono text-label uppercase text-[var(--eileen-text-muted)]">medium — plain</p>
+          <Input value={plainValue} onChange={(e) => setPlainValue(e.target.value)} placeholder="One" />
+        </div>
+
+        <div>
+          <p className="mb-2 font-mono text-label uppercase text-[var(--eileen-text-muted)]">mini</p>
+          <Input size="mini" value={miniValue} onChange={(e) => setMiniValue(e.target.value)} placeholder="RGB" />
         </div>
       </div>
     </div>
