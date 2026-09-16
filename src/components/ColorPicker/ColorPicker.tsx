@@ -1,9 +1,11 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 import { createPortal } from 'react-dom';
 import { Input } from '../Input';
 import { Button } from '../Button';
 import { CheckIcon } from '../../icons';
+import { usePopoverPosition } from '../../hooks/usePopoverPosition';
+import { useDismissOnOutsideOrEscape } from '../../hooks/useDismissOnOutsideOrEscape';
 import { hexToHsv, hsvToHex, isValidHex, type Hsv } from './colorUtils';
 
 export interface ColorPickerProps {
@@ -11,58 +13,21 @@ export interface ColorPickerProps {
   color: string;
   onChange: (hex: string) => void;
   onClose: () => void;
-  /** Element the popover anchors above and excludes from outside-click dismissal.
-   * A plain node (not a ref object) so it stays referentially stable across
-   * re-renders -- wrapping it in a fresh `{ current }` object every render
-   * would tear down and rebuild the position/outside-click effects on every
-   * render, including every pointermove while dragging. */
+  /** Element the popover anchors above (or below, if there's no room) and
+   * excludes from outside-click dismissal. A plain node (not a ref object)
+   * so it stays referentially stable across re-renders -- wrapping it in a
+   * fresh `{ current }` object every render would tear down and rebuild the
+   * position/outside-click effects on every render, including every
+   * pointermove while dragging. */
   anchorEl: HTMLElement | null;
 }
 
 export function ColorPicker({ color, onChange, onClose, anchorEl }: ColorPickerProps) {
   const [hsv, setHsv] = useState<Hsv>(() => hexToHsv(color));
   const [hexText, setHexText] = useState(color.replace('#', '').toUpperCase());
-  const popoverRef = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState<{ top: number; left: number; placement: 'above' | 'below' } | null>(
-    null
-  );
 
-  useLayoutEffect(() => {
-    const anchor = anchorEl;
-    const popover = popoverRef.current;
-    if (!anchor || !popover) return;
-    const anchorRect = anchor.getBoundingClientRect();
-    const popoverRect = popover.getBoundingClientRect();
-    const gap = 16;
-    const fitsAbove = anchorRect.top - popoverRect.height - gap >= 0;
-    const placement = fitsAbove ? 'above' : 'below';
-    setPosition({
-      top: fitsAbove ? anchorRect.top - popoverRect.height - gap : anchorRect.bottom + gap,
-      left: Math.min(
-        Math.max(anchorRect.left + anchorRect.width / 2 - popoverRect.width / 2, 8),
-        window.innerWidth - popoverRect.width - 8
-      ),
-      placement,
-    });
-  }, [anchorEl]);
-
-  useEffect(() => {
-    function handlePointerDown(e: PointerEvent) {
-      const target = e.target as Node;
-      if (popoverRef.current?.contains(target)) return;
-      if (anchorEl?.contains(target)) return;
-      onClose();
-    }
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape') onClose();
-    }
-    document.addEventListener('pointerdown', handlePointerDown);
-    document.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.removeEventListener('pointerdown', handlePointerDown);
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [anchorEl, onClose]);
+  const { popoverRef, position } = usePopoverPosition(anchorEl, 'above', 16);
+  useDismissOnOutsideOrEscape([popoverRef, { current: anchorEl }], onClose);
 
   function commit(next: Hsv) {
     setHsv(next);

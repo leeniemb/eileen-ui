@@ -1,6 +1,6 @@
 import { StrictMode, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Field, Slider, Button, SegmentedButton, Input, ColorPalette, PlusIcon, XIcon } from '../../src';
+import { Field, Slider, Button, SegmentedButton, Input, ColorPalette, PlusIcon, XIcon, Select } from '../../src';
 import '../../src/styles.css';
 
 function AlignLeftIcon() {
@@ -43,6 +43,14 @@ const ALIGN_OPTIONS = [
   { value: 'right', icon: <AlignRightIcon /> },
 ];
 
+const DECADE_OPTIONS = [
+  { value: '1960s', label: '1960s' },
+  { value: '1970s', label: '1970s' },
+  { value: '1980s', label: '1980s' },
+  { value: '1990s', label: '1990s', disabled: true },
+  { value: '2000s', label: '2000s' },
+];
+
 function Playground() {
   const [segments, setSegments] = useState(6);
   const [amount, setAmount] = useState(42);
@@ -57,6 +65,7 @@ function Playground() {
   const [plainValue, setPlainValue] = useState('');
   const [miniValue, setMiniValue] = useState('');
   const [paletteColors, setPaletteColors] = useState(['#0084DB', '#A3E8A0', '#FF4500', '#9C4FC4']);
+  const [decade, setDecade] = useState<string | null>(null);
 
   function updateRow(id: string, value: string) {
     setRows((prev) => prev.map((r) => (r.id === id ? { ...r, value } : r)));
@@ -190,6 +199,17 @@ function Playground() {
         colors={paletteColors}
         onChange={setPaletteColors}
       />
+
+      <div style={{ maxWidth: 240 }}>
+        <p className="mb-2 font-mono text-label uppercase text-[var(--eileen-text-muted)]">select</p>
+        <Select
+          options={DECADE_OPTIONS}
+          value={decade}
+          onChange={setDecade}
+          placeholder="Choose a decade"
+          aria-label="Decade"
+        />
+      </div>
     </div>
   );
 }
