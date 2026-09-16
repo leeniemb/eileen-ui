@@ -24,7 +24,16 @@ export function useDismissOnOutsideOrEscape(refs: ElRef[], onDismiss: () => void
       onDismissRef.current();
     }
     function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape') onDismissRef.current();
+      if (e.key !== 'Escape') return;
+      // A host page may have its own document-level Escape handler (e.g. to
+      // close a larger panel this popover lives inside) registered on the
+      // same target. Without this, whichever handler happens to run second
+      // sees the popover already gone and closes the outer container too,
+      // in the same keypress -- stopping propagation here means Escape only
+      // ever closes the innermost open popover, one press at a time,
+      // regardless of registration order.
+      e.stopImmediatePropagation();
+      onDismissRef.current();
     }
 
     document.addEventListener('pointerdown', handlePointerDown);
