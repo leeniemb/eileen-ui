@@ -6,6 +6,7 @@ import { Button } from '../Button';
 import { CheckIcon, XIcon } from '../../icons';
 import { usePopoverPosition } from '../../hooks/usePopoverPosition';
 import { useDismissOnOutsideOrEscape } from '../../hooks/useDismissOnOutsideOrEscape';
+import { useCoarsePointer } from '../../hooks/useCoarsePointer';
 import { hexToHsv, hsvToHex, isValidHex, type Hsv } from './colorUtils';
 
 export interface ColorPickerProps {
@@ -29,6 +30,11 @@ export interface ColorPickerProps {
 export function ColorPicker({ color, onChange, onClose, onRemove, anchorEl }: ColorPickerProps) {
   const [hsv, setHsv] = useState<Hsv>(() => hexToHsv(color));
   const [hexText, setHexText] = useState(color.replace('#', '').toUpperCase());
+  // Bigger, still-square tap targets on touch; mouse/trackpad keeps the
+  // compact mini size. The hex input isn't given a size of its own here --
+  // it just flexes into whatever width the buttons leave behind.
+  const isCoarse = useCoarsePointer();
+  const controlSize = isCoarse ? 'regular' : 'mini';
 
   const { popoverRef, position } = usePopoverPosition(anchorEl, 'above', 16);
   useDismissOnOutsideOrEscape([popoverRef, { current: anchorEl }], onClose);
@@ -117,15 +123,16 @@ export function ColorPicker({ color, onChange, onClose, onRemove, anchorEl }: Co
               size="mini"
               value={hexText}
               onChange={(e) => handleHexChange(e.target.value)}
-              className="flex-1"
+              className="min-w-0 flex-1"
               aria-label="Hex color"
             />
             {onRemove && (
               <Button
-                size="mini"
+                size={controlSize}
                 variant="outline"
                 icon={<XIcon className="h-full w-full" />}
                 aria-label="Remove"
+                className="shrink-0"
                 onClick={() => {
                   onRemove();
                   onClose();
@@ -133,10 +140,11 @@ export function ColorPicker({ color, onChange, onClose, onRemove, anchorEl }: Co
               />
             )}
             <Button
-              size="mini"
+              size={controlSize}
               variant="outline"
               icon={<CheckIcon className="h-full w-full" />}
               aria-label="Confirm"
+              className="shrink-0"
               onClick={onClose}
             />
           </div>
