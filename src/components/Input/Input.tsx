@@ -34,7 +34,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const inputId = id ?? autoId;
 
     return (
-      <div className={`flex items-center gap-2 ${className}`}>
+      <div className={`flex w-full items-center gap-2 ${className}`}>
         {label && (
           <label htmlFor={inputId} className={`shrink-0 ${labelClasses[size]}`}>
             {label}
@@ -58,7 +58,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             type="button"
             aria-label={iconLabel}
             onClick={onIconClick}
-            className="inline-flex h-4 w-4 shrink-0 items-center justify-center text-[var(--eileen-text-muted)] transition-colors hover:text-[var(--eileen-text)]"
+            className="inline-flex h-2 w-2 shrink-0 items-center justify-center text-[var(--eileen-text-muted)] transition-colors hover:text-[var(--eileen-text)]"
           >
             {icon}
           </button>
