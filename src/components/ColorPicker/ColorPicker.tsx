@@ -72,7 +72,7 @@ export function ColorPicker({ color, onChange, onClose, anchorEl }: ColorPickerP
     >
       <div className="overflow-hidden rounded-[var(--eileen-radius-lg)] bg-[var(--eileen-surface)] shadow-lg">
         <div
-          className="relative h-[240px] w-full cursor-crosshair"
+          className="relative h-[240px] w-full touch-none cursor-crosshair"
           style={{
             background: `linear-gradient(to top, #000, transparent), linear-gradient(to right, #fff, transparent), hsl(${hsv.h}, 100%, 50%)`,
           }}
@@ -92,7 +92,7 @@ export function ColorPicker({ color, onChange, onClose, anchorEl }: ColorPickerP
 
         <div className="flex flex-col gap-4 p-4">
           <div
-            className="relative h-1 w-full cursor-pointer rounded-full"
+            className="relative h-1 w-full touch-none cursor-pointer rounded-full"
             style={{ background: 'linear-gradient(to right, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00)' }}
             onPointerDown={(e) => {
               e.currentTarget.setPointerCapture(e.pointerId);
