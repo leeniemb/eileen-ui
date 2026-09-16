@@ -6,3 +6,4 @@ export * from './components/Input';
 export * from './components/ColorChip';
 export * from './components/ColorPicker';
 export * from './components/ColorPalette';
+export * from './icons';

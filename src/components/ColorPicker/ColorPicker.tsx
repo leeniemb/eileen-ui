@@ -3,6 +3,7 @@ import type { PointerEvent as ReactPointerEvent } from 'react';
 import { createPortal } from 'react-dom';
 import { Input } from '../Input';
 import { Button } from '../Button';
+import { CheckIcon } from '../../icons';
 import { hexToHsv, hsvToHex, isValidHex, type Hsv } from './colorUtils';
 
 export interface ColorPickerProps {
@@ -18,25 +19,13 @@ export interface ColorPickerProps {
   anchorEl: HTMLElement | null;
 }
 
-function CheckIcon() {
-  return (
-    <svg viewBox="0 0 16 16" fill="none" className="h-[14px] w-[14px]">
-      <path
-        d="M3 8.5L6.5 12L13 4.5"
-        stroke="currentColor"
-        strokeWidth="1.75"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
 export function ColorPicker({ color, onChange, onClose, anchorEl }: ColorPickerProps) {
   const [hsv, setHsv] = useState<Hsv>(() => hexToHsv(color));
   const [hexText, setHexText] = useState(color.replace('#', '').toUpperCase());
   const popoverRef = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState<{ top: number; left: number } | null>(null);
+  const [position, setPosition] = useState<{ top: number; left: number; placement: 'above' | 'below' } | null>(
+    null
+  );
 
   useLayoutEffect(() => {
     const anchor = anchorEl;
@@ -45,12 +34,15 @@ export function ColorPicker({ color, onChange, onClose, anchorEl }: ColorPickerP
     const anchorRect = anchor.getBoundingClientRect();
     const popoverRect = popover.getBoundingClientRect();
     const gap = 16;
+    const fitsAbove = anchorRect.top - popoverRect.height - gap >= 0;
+    const placement = fitsAbove ? 'above' : 'below';
     setPosition({
-      top: anchorRect.top - popoverRect.height - gap,
+      top: fitsAbove ? anchorRect.top - popoverRect.height - gap : anchorRect.bottom + gap,
       left: Math.min(
         Math.max(anchorRect.left + anchorRect.width / 2 - popoverRect.width / 2, 8),
         window.innerWidth - popoverRect.width - 8
       ),
+      placement,
     });
   }, [anchorEl]);
 
@@ -159,14 +151,24 @@ export function ColorPicker({ color, onChange, onClose, anchorEl }: ColorPickerP
               className="flex-1"
               aria-label="Hex color"
             />
-            <Button size="mini" variant="outline" icon={<CheckIcon />} aria-label="Confirm" onClick={onClose} />
+            <Button
+              size="mini"
+              variant="outline"
+              icon={<CheckIcon className="h-[14px] w-[14px]" />}
+              aria-label="Confirm"
+              onClick={onClose}
+            />
           </div>
         </div>
       </div>
 
       <div
         className="absolute h-3 w-3 rotate-45 bg-[var(--eileen-surface)] shadow-lg"
-        style={{ bottom: -6, left: '50%', marginLeft: -6 }}
+        style={
+          position?.placement === 'below'
+            ? { top: -6, left: '50%', marginLeft: -6 }
+            : { bottom: -6, left: '50%', marginLeft: -6 }
+        }
       />
     </div>,
     document.body

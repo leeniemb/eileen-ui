@@ -1,5 +1,6 @@
 import { useCallback, useId, useLayoutEffect, useRef, useState } from 'react';
 import type { HTMLAttributes, ReactNode } from 'react';
+import { CheckIcon } from '../../icons';
 
 export type SegmentedButtonVariant = 'text' | 'icon' | 'text-icon';
 
@@ -20,20 +21,6 @@ export interface SegmentedButtonProps extends Omit<HTMLAttributes<HTMLDivElement
   disabled?: boolean;
   /** Radio group name; auto-generated if omitted. */
   name?: string;
-}
-
-function CheckIcon() {
-  return (
-    <svg viewBox="0 0 16 16" fill="none" className="h-4 w-4 shrink-0" aria-hidden="true">
-      <path
-        d="M3 8.5L6.5 12L13 4.5"
-        stroke="currentColor"
-        strokeWidth="1.75"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
 }
 
 export function SegmentedButton({
@@ -132,7 +119,7 @@ export function SegmentedButton({
               opt.icon
             ) : (
               <>
-                {variant === 'text-icon' && selected && <CheckIcon />}
+                {variant === 'text-icon' && selected && <CheckIcon className="h-4 w-4 shrink-0" />}
                 {opt.label && <span>{opt.label}</span>}
               </>
             )}

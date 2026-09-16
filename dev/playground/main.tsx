@@ -1,23 +1,7 @@
 import { StrictMode, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Field, Slider, Button, SegmentedButton, Input, ColorPalette } from '../../src';
+import { Field, Slider, Button, SegmentedButton, Input, ColorPalette, PlusIcon, XIcon } from '../../src';
 import '../../src/styles.css';
-
-function PlusIcon() {
-  return (
-    <svg viewBox="0 0 16 16" fill="none" className="h-full w-full">
-      <path d="M8 2v12M2 8h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function XIcon() {
-  return (
-    <svg viewBox="0 0 16 16" fill="none" className="h-full w-full">
-      <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
 
 function AlignLeftIcon() {
   return (
@@ -94,16 +78,16 @@ function Playground() {
 
         <p className="font-mono text-label uppercase text-[var(--eileen-text-muted)]">regular — text + icon</p>
         <div className="flex items-center gap-4">
-          <Button icon={<PlusIcon />}>Solid</Button>
-          <Button variant="outline" icon={<PlusIcon />}>Outline</Button>
-          <Button variant="ghost" icon={<PlusIcon />}>Ghost</Button>
+          <Button icon={<PlusIcon className="h-full w-full" />}>Solid</Button>
+          <Button variant="outline" icon={<PlusIcon className="h-full w-full" />}>Outline</Button>
+          <Button variant="ghost" icon={<PlusIcon className="h-full w-full" />}>Ghost</Button>
         </div>
 
         <p className="font-mono text-label uppercase text-[var(--eileen-text-muted)]">regular — icon only</p>
         <div className="flex items-center gap-4">
-          <Button icon={<PlusIcon />} aria-label="Add" />
-          <Button variant="outline" icon={<PlusIcon />} aria-label="Add" />
-          <Button variant="ghost" icon={<PlusIcon />} aria-label="Add" />
+          <Button icon={<PlusIcon className="h-full w-full" />} aria-label="Add" />
+          <Button variant="outline" icon={<PlusIcon className="h-full w-full" />} aria-label="Add" />
+          <Button variant="ghost" icon={<PlusIcon className="h-full w-full" />} aria-label="Add" />
         </div>
 
         <p className="font-mono text-label uppercase text-[var(--eileen-text-muted)]">mini — text</p>
@@ -116,16 +100,16 @@ function Playground() {
 
         <p className="font-mono text-label uppercase text-[var(--eileen-text-muted)]">mini — text + icon</p>
         <div className="flex items-center gap-4">
-          <Button size="mini" icon={<PlusIcon />}>Solid</Button>
-          <Button size="mini" variant="outline" icon={<PlusIcon />}>Outline</Button>
-          <Button size="mini" variant="ghost" icon={<PlusIcon />}>Ghost</Button>
+          <Button size="mini" icon={<PlusIcon className="h-full w-full" />}>Solid</Button>
+          <Button size="mini" variant="outline" icon={<PlusIcon className="h-full w-full" />}>Outline</Button>
+          <Button size="mini" variant="ghost" icon={<PlusIcon className="h-full w-full" />}>Ghost</Button>
         </div>
 
         <p className="font-mono text-label uppercase text-[var(--eileen-text-muted)]">mini — icon only</p>
         <div className="flex items-center gap-4">
-          <Button size="mini" icon={<PlusIcon />} aria-label="Add" />
-          <Button size="mini" variant="outline" icon={<PlusIcon />} aria-label="Add" />
-          <Button size="mini" variant="ghost" icon={<PlusIcon />} aria-label="Add" />
+          <Button size="mini" icon={<PlusIcon className="h-full w-full" />} aria-label="Add" />
+          <Button size="mini" variant="outline" icon={<PlusIcon className="h-full w-full" />} aria-label="Add" />
+          <Button size="mini" variant="ghost" icon={<PlusIcon className="h-full w-full" />} aria-label="Add" />
         </div>
       </div>
 
@@ -181,7 +165,7 @@ function Playground() {
                 label={String(i + 1).padStart(2, '0')}
                 value={row.value}
                 onChange={(e) => updateRow(row.id, e.target.value)}
-                icon={<XIcon />}
+                icon={<XIcon className="h-full w-full" />}
                 iconLabel="Remove"
                 onIconClick={() => removeRow(row.id)}
               />

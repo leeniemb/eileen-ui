@@ -1,5 +1,6 @@
 import { forwardRef } from 'react';
 import type { ButtonHTMLAttributes, CSSProperties } from 'react';
+import { PlusIcon, XIcon } from '../../icons';
 
 export interface ColorChipProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'color' | 'onClick'> {
   /** Hex color. Omit to render the "add a color" variant. */
@@ -10,22 +11,6 @@ export interface ColorChipProps extends Omit<ButtonHTMLAttributes<HTMLButtonElem
   onClick?: () => void;
   /** Highlights the chip (e.g. while its picker is open). */
   active?: boolean;
-}
-
-function PlusIcon() {
-  return (
-    <svg viewBox="0 0 16 16" fill="none" className="h-[14px] w-[14px]">
-      <path d="M8 2.5v11M2.5 8h11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function XIcon() {
-  return (
-    <svg viewBox="0 0 16 16" fill="none" className="h-[10px] w-[10px]">
-      <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
-    </svg>
-  );
 }
 
 export const ColorChip = forwardRef<HTMLDivElement, ColorChipProps>(
@@ -48,7 +33,7 @@ export const ColorChip = forwardRef<HTMLDivElement, ColorChipProps>(
           ].join(' ')}
           {...props}
         >
-          {isAdd && <PlusIcon />}
+          {isAdd && <PlusIcon className="h-[14px] w-[14px]" />}
         </button>
         {!isAdd && removable && (
           <button
@@ -60,7 +45,7 @@ export const ColorChip = forwardRef<HTMLDivElement, ColorChipProps>(
             }}
             className="absolute -right-1 -top-1 hidden h-4 w-4 items-center justify-center rounded-full bg-[var(--eileen-surface)] text-[var(--eileen-text)] shadow group-hover:flex"
           >
-            <XIcon />
+            <XIcon className="h-[10px] w-[10px]" />
           </button>
         )}
       </div>
