@@ -154,7 +154,7 @@ export function ColorPicker({ color, onChange, onClose, anchorEl }: ColorPickerP
             <Button
               size="mini"
               variant="outline"
-              icon={<CheckIcon className="h-[14px] w-[14px]" />}
+              icon={<CheckIcon className="h-full w-full" />}
               aria-label="Confirm"
               onClick={onClose}
             />
