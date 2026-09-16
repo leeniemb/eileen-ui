@@ -3,7 +3,7 @@ import type { PointerEvent as ReactPointerEvent } from 'react';
 import { createPortal } from 'react-dom';
 import { Input } from '../Input';
 import { Button } from '../Button';
-import { CheckIcon } from '../../icons';
+import { CheckIcon, XIcon } from '../../icons';
 import { usePopoverPosition } from '../../hooks/usePopoverPosition';
 import { useDismissOnOutsideOrEscape } from '../../hooks/useDismissOnOutsideOrEscape';
 import { hexToHsv, hsvToHex, isValidHex, type Hsv } from './colorUtils';
@@ -13,6 +13,10 @@ export interface ColorPickerProps {
   color: string;
   onChange: (hex: string) => void;
   onClose: () => void;
+  /** Shows a Remove button next to Confirm when provided -- the only way
+   * to remove a color on a touch device, since there's no hover state
+   * for ColorChip's own remove badge there. */
+  onRemove?: () => void;
   /** Element the popover anchors above (or below, if there's no room) and
    * excludes from outside-click dismissal. A plain node (not a ref object)
    * so it stays referentially stable across re-renders -- wrapping it in a
@@ -22,7 +26,7 @@ export interface ColorPickerProps {
   anchorEl: HTMLElement | null;
 }
 
-export function ColorPicker({ color, onChange, onClose, anchorEl }: ColorPickerProps) {
+export function ColorPicker({ color, onChange, onClose, onRemove, anchorEl }: ColorPickerProps) {
   const [hsv, setHsv] = useState<Hsv>(() => hexToHsv(color));
   const [hexText, setHexText] = useState(color.replace('#', '').toUpperCase());
 
@@ -116,6 +120,18 @@ export function ColorPicker({ color, onChange, onClose, anchorEl }: ColorPickerP
               className="flex-1"
               aria-label="Hex color"
             />
+            {onRemove && (
+              <Button
+                size="mini"
+                variant="outline"
+                icon={<XIcon className="h-full w-full" />}
+                aria-label="Remove"
+                onClick={() => {
+                  onRemove();
+                  onClose();
+                }}
+              />
+            )}
             <Button
               size="mini"
               variant="outline"

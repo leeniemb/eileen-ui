@@ -90,6 +90,7 @@ export function ColorPalette({
           color={colors[openIndex]}
           onChange={(hex) => updateColor(openIndex, hex)}
           onClose={closePicker}
+          onRemove={editable ? () => removeColor(openIndex) : undefined}
           anchorEl={chipRefs.current[openIndex]}
         />
       )}
