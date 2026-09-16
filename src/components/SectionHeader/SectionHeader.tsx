@@ -11,6 +11,8 @@ export interface SectionHeaderProps {
    * own to hide, so pass this through to whatever it controls. */
   collapsed?: boolean;
   onChange?: (collapsed: boolean) => void;
+  /** Id of the element the collapse toggle controls, for assistive tech. */
+  'aria-controls'?: string;
   className?: string;
 }
 
@@ -20,6 +22,7 @@ export function SectionHeader({
   collapsible = false,
   collapsed = false,
   onChange,
+  'aria-controls': ariaControls,
   className = '',
 }: SectionHeaderProps) {
   const label = (
@@ -40,6 +43,7 @@ export function SectionHeader({
         <button
           type="button"
           aria-expanded={!collapsed}
+          aria-controls={ariaControls}
           onClick={() => onChange?.(!collapsed)}
           className={[
             'flex w-full items-center justify-between gap-4 pt-4 text-left outline-none',
