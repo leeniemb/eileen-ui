@@ -1,15 +1,11 @@
 import type { SVGProps } from 'react';
 
-/** Edit this path to swap in your own checkmark artwork. */
 export function CheckIcon(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" {...props}>
+    <svg viewBox="0 0 10 8" fill="none" aria-hidden="true" {...props}>
       <path
-        d="M3 8.5L6.5 12L13 4.5"
-        stroke="currentColor"
-        strokeWidth="1.75"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        d="M9.32391 0.0871282C9.47522 -0.0289679 9.69577 -0.0309279 9.85045 0.0925975C10.005 0.216407 10.0423 0.424888 9.95055 0.588739L9.90335 0.655933L3.65326 7.85662C3.57832 7.94283 3.46899 7.99451 3.35214 7.9996C3.23533 8.00459 3.12152 7.96257 3.03883 7.88318L0.122116 5.08292L0.0684044 5.02041C-0.0381648 4.86516 -0.0201782 4.65385 0.122116 4.51724C0.264414 4.38064 0.484515 4.36335 0.646212 4.46567L0.711318 4.51724L3.30494 7.00732L9.26369 0.143384L9.32391 0.0871282Z"
+        fill="currentColor"
       />
     </svg>
   );

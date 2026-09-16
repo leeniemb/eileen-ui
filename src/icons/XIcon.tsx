@@ -1,10 +1,9 @@
 import type { SVGProps } from 'react';
 
-/** Edit this path to swap in your own remove/close artwork. */
 export function XIcon(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" {...props}>
-      <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+    <svg viewBox="0 0 9 9" fill="none" aria-hidden="true" {...props}>
+      <path d="M8.5 0.5L0.5 8.5M8.5 8.5L0.5 0.499998" stroke="currentColor" strokeLinecap="round" />
     </svg>
   );
 }

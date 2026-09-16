@@ -43,7 +43,7 @@ export const ColorChip = forwardRef<HTMLDivElement, ColorChipProps>(
               e.stopPropagation();
               onRemove?.();
             }}
-            className="absolute -right-1 -top-1 hidden h-4 w-4 items-center justify-center rounded-full bg-[var(--eileen-surface)] text-[var(--eileen-text)] shadow group-hover:flex"
+            className="absolute -right-1 -top-1 hidden h-4 w-4 items-center justify-center rounded-full bg-[var(--eileen-surface)] text-[var(--eileen-text-muted)] shadow group-hover:flex"
           >
             <XIcon className="h-[10px] w-[10px]" />
           </button>
