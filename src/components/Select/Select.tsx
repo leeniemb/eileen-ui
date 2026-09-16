@@ -1,4 +1,4 @@
-import { useId, useRef, useState } from 'react';
+import { useCallback, useId, useLayoutEffect, useRef, useState } from 'react';
 import type { ButtonHTMLAttributes, KeyboardEvent } from 'react';
 import { createPortal } from 'react-dom';
 import { ChevronDown, ChevronUp, CheckIcon } from '../../icons';
@@ -34,6 +34,38 @@ export function Select({
 
   const { popoverRef, position } = usePopoverPosition(triggerRef.current, 'below', 4);
   useDismissOnOutsideOrEscape([popoverRef, triggerRef], () => setOpen(false), open);
+
+  // Sliding highlight behind whichever option is currently highlighted,
+  // same approach as SegmentedButton's indicator: measure the option's own
+  // offsetTop/offsetHeight and animate a separate absolutely-positioned
+  // element to match, rather than each option toggling its own background.
+  const optionRefs = useRef(new Map<number, HTMLDivElement>());
+  const optionRefSetters = useRef(new Map<number, (el: HTMLDivElement | null) => void>());
+  function getOptionRefSetter(i: number) {
+    let setter = optionRefSetters.current.get(i);
+    if (!setter) {
+      setter = (el) => {
+        if (el) optionRefs.current.set(i, el);
+        else optionRefs.current.delete(i);
+      };
+      optionRefSetters.current.set(i, setter);
+    }
+    return setter;
+  }
+  const highlightedRef = useRef(highlighted);
+  highlightedRef.current = highlighted;
+  const [highlightRect, setHighlightRect] = useState<{ top: number; height: number } | null>(null);
+
+  const measureHighlight = useCallback(() => {
+    const el = optionRefs.current.get(highlightedRef.current);
+    if (!el) return;
+    setHighlightRect({ top: el.offsetTop, height: el.offsetHeight });
+  }, []);
+
+  useLayoutEffect(() => {
+    if (open) measureHighlight();
+    else setHighlightRect(null);
+  }, [open, highlighted, options, measureHighlight]);
 
   const selected = options.find((o) => o.value === value);
   const enabledIndices = options.map((o, i) => (o.disabled ? -1 : i)).filter((i) => i >= 0);
@@ -139,28 +171,39 @@ export function Select({
               visibility: position ? 'visible' : 'hidden',
             }}
           >
-            {options.map((opt, i) => (
+            {highlightRect && (
               <div
-                key={opt.value}
-                id={`${listId}-${i}`}
-                role="option"
-                aria-selected={opt.value === value}
-                aria-disabled={opt.disabled}
-                onClick={() => selectOption(i)}
-                onPointerEnter={() => !opt.disabled && setHighlighted(i)}
-                className={[
-                  // Panel has p-1 (4px); this padding is 12px so option text
-                  // lands 16px from the panel edge, matching the trigger's
-                  // own px-4 -- the two need to add up, not match each other.
-                  'flex h-8 cursor-pointer items-center justify-between gap-2 rounded-[var(--eileen-radius-sm)] px-[12px] text-sm font-sans transition-colors',
-                  opt.disabled ? 'pointer-events-none opacity-50' : '',
-                  i === highlighted ? 'bg-meringue' : '',
-                ].join(' ')}
-              >
-                <span className="truncate">{opt.label}</span>
-                {opt.value === value && <CheckIcon className="h-[10px] w-[10px] shrink-0" />}
-              </div>
-            ))}
+                aria-hidden="true"
+                className="absolute inset-x-1 rounded-[var(--eileen-radius-sm)] bg-meringue transition-[transform,height] duration-150 ease-out"
+                style={{ top: 0, height: highlightRect.height, transform: `translateY(${highlightRect.top}px)` }}
+              />
+            )}
+            {options.map((opt, i) => {
+              const isSelected = opt.value === value;
+              return (
+                <div
+                  key={opt.value}
+                  ref={getOptionRefSetter(i)}
+                  id={`${listId}-${i}`}
+                  role="option"
+                  aria-selected={isSelected}
+                  aria-disabled={opt.disabled}
+                  onClick={() => selectOption(i)}
+                  onPointerEnter={() => !opt.disabled && setHighlighted(i)}
+                  className={[
+                    // Panel has p-1 (4px); this padding is 12px so option text
+                    // lands 16px from the panel edge, matching the trigger's
+                    // own px-4 -- the two need to add up, not match each other.
+                    'relative z-10 flex h-8 cursor-pointer items-center justify-between gap-2 px-[12px] text-sm font-sans transition-colors',
+                    opt.disabled ? 'pointer-events-none opacity-50' : '',
+                    isSelected ? 'font-medium' : '',
+                  ].join(' ')}
+                >
+                  <span className="truncate">{opt.label}</span>
+                  {isSelected && <CheckIcon className="h-[10px] w-[10px] shrink-0" />}
+                </div>
+              );
+            })}
           </div>,
           document.body
         )}
