@@ -25,11 +25,11 @@ export function SectionHeader({
   const label = (
     <span className="flex items-baseline gap-4">
       {number != null && (
-        <span className="font-mono text-2xl text-[var(--eileen-text-muted)]">
+        <span className="font-mono text-xl text-[var(--eileen-text-muted)]">
           {String(number).padStart(2, '0')}
         </span>
       )}
-      <span className="font-sans text-2xl font-bold text-[var(--eileen-text)]">{title}</span>
+      <span className="font-sans text-xl font-bold text-[var(--eileen-text)]">{title}</span>
     </span>
   );
 
@@ -42,7 +42,7 @@ export function SectionHeader({
           aria-expanded={!collapsed}
           onClick={() => onChange?.(!collapsed)}
           className={[
-            'flex w-full items-center justify-between gap-4 pt-8 text-left outline-none',
+            'flex w-full items-center justify-between gap-4 pt-4 text-left outline-none',
             'focus-visible:ring-2 focus-visible:ring-[var(--eileen-accent)] focus-visible:ring-offset-2',
           ].join(' ')}
         >
@@ -54,7 +54,7 @@ export function SectionHeader({
           )}
         </button>
       ) : (
-        <div className="flex w-full items-center justify-between gap-4 pt-8">{label}</div>
+        <div className="flex w-full items-center justify-between gap-4 pt-4">{label}</div>
       )}
     </div>
   );
