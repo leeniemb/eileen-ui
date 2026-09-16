@@ -1,7 +1,7 @@
 import { Fragment, StrictMode, useState } from 'react';
 import type { ReactNode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Field, Slider, Button, SegmentedButton, Input, ColorPalette, PlusIcon, XIcon, Select } from '../../src';
+import { Field, Slider, Button, SegmentedButton, Input, ColorPalette, PlusIcon, XIcon, Select, Switch } from '../../src';
 import '../../src/styles.css';
 
 function AlignLeftIcon() {
@@ -100,6 +100,9 @@ function Playground() {
   const [miniValue, setMiniValue] = useState('');
   const [paletteColors, setPaletteColors] = useState(['#0084DB', '#A3E8A0', '#FF4500', '#9C4FC4']);
   const [decade, setDecade] = useState<string | null>(null);
+  const [switchOn, setSwitchOn] = useState(true);
+  const [switchOff, setSwitchOff] = useState(false);
+  const [highlightWinner, setHighlightWinner] = useState(true);
 
   function updateRow(id: string, value: string) {
     setRows((prev) => prev.map((r) => (r.id === id ? { ...r, value } : r)));
@@ -295,6 +298,35 @@ function Playground() {
                 onChange={setDecade}
                 placeholder="Choose a decade"
               />
+            ),
+          },
+        ]}
+      />
+
+      <ComponentSection
+        name="Switch"
+        rows={[
+          {
+            label: 'on / off',
+            content: (
+              <div className="flex items-center gap-4">
+                <Switch checked={switchOn} onChange={setSwitchOn} aria-label="On example" />
+                <Switch checked={switchOff} onChange={setSwitchOff} aria-label="Off example" />
+                <Switch checked disabled aria-label="Disabled on" />
+                <Switch checked={false} disabled aria-label="Disabled off" />
+              </div>
+            ),
+          },
+          {
+            label: 'labeled row',
+            content: (
+              // Not a <label> wrapping both: Switch already renders its own
+              // internal <label>, and nested labels are invalid HTML with
+              // unpredictable click behavior across browsers.
+              <div className="flex w-full items-center justify-between gap-4">
+                <span className="text-lg font-sans text-[var(--eileen-text)]">Highlight winning segment</span>
+                <Switch checked={highlightWinner} onChange={setHighlightWinner} />
+              </div>
             ),
           },
         ]}

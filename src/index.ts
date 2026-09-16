@@ -7,4 +7,5 @@ export * from './components/ColorChip';
 export * from './components/ColorPicker';
 export * from './components/ColorPalette';
 export * from './components/Select';
+export * from './components/Switch';
 export * from './icons';
