@@ -15,7 +15,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
       <label
         className={[
           'relative inline-flex h-6 w-10 shrink-0 items-center rounded-full transition-colors duration-150',
-          'focus-within:ring-2 focus-within:ring-[var(--eileen-accent)] focus-within:ring-offset-2',
+          'has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-[var(--eileen-accent)] has-[:focus-visible]:ring-offset-2',
           checked ? 'bg-[var(--eileen-accent)]' : 'bg-meringue',
           disabled ? 'pointer-events-none opacity-50' : 'cursor-pointer',
           className,

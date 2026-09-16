@@ -112,19 +112,22 @@ function Playground() {
   }
 
   return (
-    <div
-      style={{
-        maxWidth: 960,
-        margin: '0 auto',
-        padding: '96px 48px',
-        display: 'grid',
-        gridTemplateColumns: '120px 200px 1fr',
-        columnGap: 40,
-        rowGap: 40,
-        alignItems: 'start',
-      }}
-    >
-      <ComponentSection
+    <div style={{ maxWidth: 960, margin: '0 auto', padding: '96px 48px 48px' }}>
+      <header style={{ marginBottom: 64 }}>
+        <h1 className="text-4xl font-sans text-[var(--eileen-text)]">eileen-ui</h1>
+        <p className="mt-2 font-mono text-base text-[var(--eileen-text-muted)]">Component Playground</p>
+      </header>
+
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '120px 200px 1fr',
+          columnGap: 40,
+          rowGap: 40,
+          alignItems: 'start',
+        }}
+      >
+        <ComponentSection
         name="Button"
         rows={[
           {
@@ -324,13 +327,14 @@ function Playground() {
               // internal <label>, and nested labels are invalid HTML with
               // unpredictable click behavior across browsers.
               <div className="flex w-full items-center justify-between gap-4">
-                <span className="text-lg font-sans text-[var(--eileen-text)]">Highlight winning segment</span>
+                <span className="text-base font-sans text-[var(--eileen-text)]">Highlight winning segment</span>
                 <Switch checked={highlightWinner} onChange={setHighlightWinner} />
               </div>
             ),
           },
         ]}
       />
+      </div>
     </div>
   );
 }
