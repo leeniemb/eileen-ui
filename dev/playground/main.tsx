@@ -126,7 +126,7 @@ function Playground() {
           {
             label: 'regular / text',
             content: (
-              <div className="flex items-center gap-4">
+              <div className="flex flex-wrap items-center gap-4">
                 <Button>Solid</Button>
                 <Button variant="outline">Outline</Button>
                 <Button variant="ghost">Ghost</Button>
@@ -137,7 +137,7 @@ function Playground() {
           {
             label: 'regular / text+icon',
             content: (
-              <div className="flex items-center gap-4">
+              <div className="flex flex-wrap items-center gap-4">
                 <Button icon={<PlusIcon className="h-full w-full" />}>Solid</Button>
                 <Button variant="outline" icon={<PlusIcon className="h-full w-full" />}>Outline</Button>
                 <Button variant="ghost" icon={<PlusIcon className="h-full w-full" />}>Ghost</Button>
@@ -147,7 +147,7 @@ function Playground() {
           {
             label: 'regular / icon only',
             content: (
-              <div className="flex items-center gap-4">
+              <div className="flex flex-wrap items-center gap-4">
                 <Button icon={<PlusIcon className="h-full w-full" />} aria-label="Add" />
                 <Button variant="outline" icon={<PlusIcon className="h-full w-full" />} aria-label="Add" />
                 <Button variant="ghost" icon={<PlusIcon className="h-full w-full" />} aria-label="Add" />
@@ -157,7 +157,7 @@ function Playground() {
           {
             label: 'mini / text',
             content: (
-              <div className="flex items-center gap-4">
+              <div className="flex flex-wrap items-center gap-4">
                 <Button size="mini">Solid</Button>
                 <Button size="mini" variant="outline">Outline</Button>
                 <Button size="mini" variant="ghost">Ghost</Button>
@@ -168,7 +168,7 @@ function Playground() {
           {
             label: 'mini / text+icon',
             content: (
-              <div className="flex items-center gap-4">
+              <div className="flex flex-wrap items-center gap-4">
                 <Button size="mini" icon={<PlusIcon className="h-full w-full" />}>Solid</Button>
                 <Button size="mini" variant="outline" icon={<PlusIcon className="h-full w-full" />}>Outline</Button>
                 <Button size="mini" variant="ghost" icon={<PlusIcon className="h-full w-full" />}>Ghost</Button>
@@ -178,7 +178,7 @@ function Playground() {
           {
             label: 'mini / icon only',
             content: (
-              <div className="flex items-center gap-4">
+              <div className="flex flex-wrap items-center gap-4">
                 <Button size="mini" icon={<PlusIcon className="h-full w-full" />} aria-label="Add" />
                 <Button size="mini" variant="outline" icon={<PlusIcon className="h-full w-full" />} aria-label="Add" />
                 <Button size="mini" variant="ghost" icon={<PlusIcon className="h-full w-full" />} aria-label="Add" />
