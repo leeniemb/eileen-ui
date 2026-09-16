@@ -22,10 +22,13 @@
   --eileen-accent: var(--eileen-black-sesame);
   --eileen-accent-fg: var(--eileen-white);
 
+  /* radius-sm/base/lg step by 4px, matching the spacing rhythm. Use lg for a
+     container that nests an inset element on the base radius padded by 4px
+     (outer = inner + padding keeps the two curves sharing a center), and sm
+     for small interactive rows that shouldn't read as heavily rounded as a
+     button or card. */
+  --eileen-radius-sm: 4px;
   --eileen-radius: 8px;
-  /* For a container that nests an inset element on --eileen-radius padded by
-     4px: outer = inner + padding, so the two curves share a center instead
-     of looking like two unrelated roundnesses. */
   --eileen-radius-lg: 12px;
 }
 

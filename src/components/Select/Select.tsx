@@ -108,6 +108,7 @@ export function Select({
         className={[
           'flex h-[36px] w-full items-center justify-between gap-2 rounded-[var(--eileen-radius)]',
           'border border-[var(--eileen-text)] bg-white px-4 text-sm font-sans text-[var(--eileen-text)]',
+          'outline-none focus-visible:border-2',
           'disabled:opacity-50 disabled:pointer-events-none',
           className,
         ].join(' ')}
@@ -148,7 +149,10 @@ export function Select({
                 onClick={() => selectOption(i)}
                 onPointerEnter={() => !opt.disabled && setHighlighted(i)}
                 className={[
-                  'flex h-8 cursor-pointer items-center justify-between gap-2 rounded-[var(--eileen-radius)] px-3 text-sm font-sans transition-colors',
+                  // Panel has p-1 (4px); this padding is 12px so option text
+                  // lands 16px from the panel edge, matching the trigger's
+                  // own px-4 -- the two need to add up, not match each other.
+                  'flex h-8 cursor-pointer items-center justify-between gap-2 rounded-[var(--eileen-radius-sm)] px-[12px] text-sm font-sans transition-colors',
                   opt.disabled ? 'pointer-events-none opacity-50' : '',
                   i === highlighted ? 'bg-meringue' : '',
                 ].join(' ')}
