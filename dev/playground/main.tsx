@@ -1,4 +1,4 @@
-import { Fragment, StrictMode, useState } from 'react';
+import { StrictMode, useState } from 'react';
 import type { ReactNode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Field, Slider, Button, SegmentedButton, Input, ColorPalette, PlusIcon, XIcon, Select, Switch, SectionHeader } from '../../src';
@@ -57,31 +57,31 @@ interface VariantRow {
   content: ReactNode;
 }
 
-/** One component's block: name (col 1, spans every variant row it has),
- * a variant caption (col 2) and the live render (col 3) per row, and a
- * full-width divider after the block. Name/caption are demo-only
- * scaffolding -- never anything the component itself renders -- kept in
- * their own columns so that's never ambiguous next to a real prop like
- * Field's title or Input/Select's `title`. */
+/** One component's block: name (col 1, beside every variant row it has), a
+ * variant caption (col 2) and the live render (col 3) per row, and a
+ * full-width divider after the block. Below the `md` breakpoint, name /
+ * caption / rendered component stack full-width instead. Name/caption are
+ * demo-only scaffolding -- never anything the component itself renders --
+ * kept in their own columns so that's never ambiguous next to a real prop
+ * like Field's title or Input/Select's `title`. */
 function ComponentSection({ name, rows }: { name: string; rows: VariantRow[] }) {
   return (
-    <>
-      <p
-        className="pt-2 text-sm font-sans text-[var(--eileen-text)]"
-        style={{ gridRow: `span ${rows.length}`, alignSelf: 'start' }}
-      >
-        {name}
-      </p>
-      {rows.map((row, i) => (
-        <Fragment key={i}>
-          <p className="pt-2 text-right font-mono text-label uppercase text-[var(--eileen-text-muted)]">
-            {row.label}
-          </p>
-          <div>{row.content}</div>
-        </Fragment>
-      ))}
-      <div style={{ gridColumn: '1 / -1', borderTop: '1px solid var(--eileen-border)' }} />
-    </>
+    <div className="w-full">
+      <div className="flex flex-col gap-4 md:grid md:grid-cols-[120px_1fr] md:items-start md:gap-x-10">
+        <p className="text-sm font-sans text-[var(--eileen-text)] md:pt-2">{name}</p>
+        <div className="flex flex-col gap-6 md:gap-10">
+          {rows.map((row, i) => (
+            <div key={i} className="flex flex-col gap-2 md:grid md:grid-cols-[200px_1fr] md:items-start md:gap-x-10">
+              <p className="text-left font-mono text-label uppercase text-[var(--eileen-text-muted)] md:pt-2 md:text-right">
+                {row.label}
+              </p>
+              <div className="w-full">{row.content}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="mt-10" style={{ borderTop: '1px solid var(--eileen-border)' }} />
+    </div>
   );
 }
 
@@ -119,15 +119,7 @@ function Playground() {
         <p className="mt-2 font-mono text-base text-[var(--eileen-text-muted)]">Component Playground</p>
       </header>
 
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '120px 200px 1fr',
-          columnGap: 40,
-          rowGap: 40,
-          alignItems: 'start',
-        }}
-      >
+      <div className="flex flex-col gap-10">
         <ComponentSection
         name="Button"
         rows={[
