@@ -1,6 +1,6 @@
 import { StrictMode, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Field, Slider, Button, SegmentedButton, Input } from '../../src';
+import { Field, Slider, Button, SegmentedButton, Input, ColorPalette } from '../../src';
 import '../../src/styles.css';
 
 function PlusIcon() {
@@ -72,6 +72,7 @@ function Playground() {
   ]);
   const [plainValue, setPlainValue] = useState('');
   const [miniValue, setMiniValue] = useState('');
+  const [paletteColors, setPaletteColors] = useState(['#0084DB', '#A3E8A0', '#FF4500', '#9C4FC4']);
 
   function updateRow(id: string, value: string) {
     setRows((prev) => prev.map((r) => (r.id === id ? { ...r, value } : r)));
@@ -198,6 +199,13 @@ function Playground() {
           <Input size="mini" value={miniValue} onChange={(e) => setMiniValue(e.target.value)} placeholder="RGB" />
         </div>
       </div>
+
+      <ColorPalette
+        title="Size"
+        description="Edit a swatch to update every component using it."
+        colors={paletteColors}
+        onChange={setPaletteColors}
+      />
     </div>
   );
 }

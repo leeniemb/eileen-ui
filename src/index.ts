@@ -3,3 +3,6 @@ export * from './components/Field';
 export * from './components/Slider';
 export * from './components/SegmentedButton';
 export * from './components/Input';
+export * from './components/ColorChip';
+export * from './components/ColorPicker';
+export * from './components/ColorPalette';
