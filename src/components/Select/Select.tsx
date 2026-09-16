@@ -16,6 +16,9 @@ export interface SelectProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement
   value: string | null;
   onChange: (value: string) => void;
   placeholder?: string;
+  /** Standalone field label above the trigger, styled like Field's title
+   * (Helvetica, base). */
+  title?: string;
 }
 
 export function Select({
@@ -25,12 +28,16 @@ export function Select({
   placeholder = 'Select…',
   disabled,
   className = '',
+  title,
+  id,
   ...props
 }: SelectProps) {
   const [open, setOpen] = useState(false);
   const [highlighted, setHighlighted] = useState(0);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const listId = useId();
+  const autoId = useId();
+  const triggerId = id ?? autoId;
 
   const { popoverRef, position } = usePopoverPosition(triggerRef.current, 'below', 4);
   useDismissOnOutsideOrEscape([popoverRef, triggerRef], () => setOpen(false), open);
@@ -126,9 +133,15 @@ export function Select({
   }
 
   return (
-    <>
+    <div className={`flex w-full flex-col gap-2 ${className}`}>
+      {title && (
+        <label htmlFor={triggerId} className="text-base font-sans text-[var(--eileen-text)]">
+          {title}
+        </label>
+      )}
       <button
         ref={triggerRef}
+        id={triggerId}
         type="button"
         role="combobox"
         aria-haspopup="listbox"
@@ -142,7 +155,6 @@ export function Select({
           'border border-[var(--eileen-text)] bg-white px-4 text-sm font-sans text-[var(--eileen-text)]',
           'outline-none focus-visible:border-2',
           'disabled:opacity-50 disabled:pointer-events-none',
-          className,
         ].join(' ')}
         {...props}
       >
@@ -207,6 +219,6 @@ export function Select({
           </div>,
           document.body
         )}
-    </>
+    </div>
   );
 }
