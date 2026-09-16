@@ -162,7 +162,7 @@ function Playground() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-6" style={{ maxWidth: 320 }}>
+      <div className="flex flex-col gap-6">
         <div>
           <p className="mb-2 font-mono text-label uppercase text-[var(--eileen-text-muted)]">
             medium — label + remove
@@ -200,7 +200,7 @@ function Playground() {
         onChange={setPaletteColors}
       />
 
-      <div style={{ maxWidth: 240 }}>
+      <div>
         <p className="mb-2 font-mono text-label uppercase text-[var(--eileen-text-muted)]">select</p>
         <Select
           options={DECADE_OPTIONS}
