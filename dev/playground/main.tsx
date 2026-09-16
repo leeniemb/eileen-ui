@@ -1,7 +1,7 @@
 import { Fragment, StrictMode, useState } from 'react';
 import type { ReactNode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Field, Slider, Button, SegmentedButton, Input, ColorPalette, PlusIcon, XIcon, Select, Switch } from '../../src';
+import { Field, Slider, Button, SegmentedButton, Input, ColorPalette, PlusIcon, XIcon, Select, Switch, SectionHeader } from '../../src';
 import '../../src/styles.css';
 
 function AlignLeftIcon() {
@@ -103,6 +103,7 @@ function Playground() {
   const [switchOn, setSwitchOn] = useState(true);
   const [switchOff, setSwitchOff] = useState(false);
   const [highlightWinner, setHighlightWinner] = useState(true);
+  const [sectionCollapsed, setSectionCollapsed] = useState(false);
 
   function updateRow(id: string, value: string) {
     setRows((prev) => prev.map((r) => (r.id === id ? { ...r, value } : r)));
@@ -331,6 +332,32 @@ function Playground() {
                 <Switch checked={highlightWinner} onChange={setHighlightWinner} />
               </div>
             ),
+          },
+        ]}
+      />
+
+      <ComponentSection
+        name="SectionHeader"
+        rows={[
+          {
+            label: 'numbered',
+            content: <SectionHeader number={1} title="Content" />,
+          },
+          {
+            label: 'collapsible',
+            content: (
+              <SectionHeader
+                number={2}
+                title="Details"
+                collapsible
+                collapsed={sectionCollapsed}
+                onChange={setSectionCollapsed}
+              />
+            ),
+          },
+          {
+            label: 'no number',
+            content: <SectionHeader title="Summary" />,
           },
         ]}
       />
